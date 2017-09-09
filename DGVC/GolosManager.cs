@@ -1,26 +1,41 @@
 ﻿using Ditch;
-using System;
+using Ditch.JsonRpc;
+using Ditch.Operations.Get;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestProject
 {
     public class GolosManager
     {
-        public GolosManager(string username, string password)
-        {
-        }
+        public OperationManager Golos { get; protected set; }
 
-        public static ulong GetUsersCount()
+        public GolosManager()
         {
             var chain = new Dictionary<string, ChainInfo>();
             var golosChainInfo = ChainManager.GetChainInfo(KnownChains.Golos);
             chain.Add("Golos", golosChainInfo);
-            var Golos = new OperationManager(golosChainInfo.Url, golosChainInfo.ChainId);
+            Golos = new OperationManager(golosChainInfo.Url, golosChainInfo.ChainId);
+        }
+
+        public ulong GetUsersCount()
+        {
             return Golos.GetAccountCount().Result;
         }
 
+        private JsonRpcResponse<KeyValuePair<uint, AppliedOperation>[]> GetUserHistoryAsJson(string userName, ulong from, uint limit = uint.MaxValue)
+        {
+            return Golos.GetAccountHistory(userName, from, limit);
+        }
+
+        public List<UserHistoryElement> GetUserHistory(string userName, ulong from, uint limit = uint.MaxValue)
+        {
+            var json = GetUserHistoryAsJson(userName, from, limit);
+            List<UserHistoryElement> result = new List<UserHistoryElement>();
+            foreach (var historyElement in json.Result)
+            {
+                string eventType = historyElement.Value.Op[0] as string;
+            }
+            return result;
+        }
     }
 }

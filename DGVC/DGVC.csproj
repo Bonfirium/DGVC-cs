@@ -122,10 +122,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateAccountUHE.cs" />
     <Compile Include="GolosManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignatureGenerator.cs" />
+    <Compile Include="UserHistoryElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
