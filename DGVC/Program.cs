@@ -24,7 +24,7 @@ namespace TestProject
             //        Console.WriteLine("\tBlock #" + a.Value.Block);
             //    }
             //}
-            //gm.GetUserHistory("vermilliest", 1000);
+            gm.GetUserHistory("vermilliest", 1000, 1000);
 
 #if DEBUG
             Console.Read();
