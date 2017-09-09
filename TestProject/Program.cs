@@ -39,11 +39,15 @@ namespace TestProject
             var Golos = new OperationManager(golosChainInfo.Url, golosChainInfo.ChainId);
             var accountCount = Golos.GetAccountCount();
             Console.WriteLine("Account Count = " + accountCount.Result);
-            //var accountHistory = Golos.GetAccountHistory("vermilliest", 1000, 1000);
-            //foreach (var a in accountHistory.Result)
-            //{
-            //    //if ((a.Value.Op[1] as string).Contains("")
-            //}
+            var accountHistory = Golos.GetAccountHistory("vermilliest", 1000, 1000);
+            foreach (var a in accountHistory.Result)
+            {
+                if ((a.Value.Op[0] as string) == "account_create")
+                {
+                    Console.WriteLine("Account create");
+                    Console.WriteLine("\tBlock #" + a.Value.Block);
+                }
+            }
 #endif
 
 #if DEBUG
