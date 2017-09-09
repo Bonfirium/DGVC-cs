@@ -27,7 +27,7 @@ namespace DGVC_UI
         {
             return Task.Run(() =>
             {
-                return GolosManager.GetUsersCount();
+                return Program.GolosManager.GetUsersCount();
             });
         }
     }
