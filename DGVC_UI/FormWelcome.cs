@@ -15,7 +15,6 @@ namespace DGVC_UI
             {
                 DisplayResultAsync(item);
             }
-            
         }
 
         static async void DisplayResultAsync(Label label)
