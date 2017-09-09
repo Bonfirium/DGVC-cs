@@ -9,6 +9,22 @@ using System.Threading.Tasks;
 namespace ConsoleApplication {
     public static class DGShellExecutor {
 
+        private static Process _process = null;
+
+        public static string Sum(this List<string> list, string split = "") {
+            string result = "";
+            bool isFirst = true;
+            foreach (var item in list) {
+                if (!isFirst) {
+                    result += split;
+                } else {
+                    isFirst = false;
+                }
+                result += item;
+            }
+            return result;
+        }
+
         public static bool HasExtention(string filename, string extention) {
             string extentionWithDot = "." + extention;
             return filename.LastIndexOf(extentionWithDot) == filename.Length - extentionWithDot.Length;
@@ -48,6 +64,7 @@ namespace ConsoleApplication {
                             Directory.SetCurrentDirectory(destinationDirectory);
                             return true;
                         } else if (arguments[0][1] != ':') {
+                            //TODO: Make space control
                             Directory.SetCurrentDirectory(Directory.GetCurrentDirectory( ) + '\\' + arguments[0]);
                             return true;
                         } else if (arguments[0].Substring(1, 2) == ":\\") {
@@ -56,7 +73,7 @@ namespace ConsoleApplication {
                         }
                         break;
                     case "ls":
-                        var process = new Process {
+                        _process = new Process {
                             StartInfo = new ProcessStartInfo {
                                 FileName = "cmd.exe",
                                 Arguments = "/c dir /b",
@@ -65,10 +82,10 @@ namespace ConsoleApplication {
                                 CreateNoWindow = true,
                             }
                         };
-                        process.Start( );
+                        _process.Start( );
                         ConsoleColor prevColor = Console.ForegroundColor;
-                        while (!process.StandardOutput.EndOfStream) {
-                            string result = process.StandardOutput.ReadLine( );
+                        while (!_process.StandardOutput.EndOfStream) {
+                            string result = _process.StandardOutput.ReadLine( );
                             if (Directory.Exists(Directory.GetCurrentDirectory( ) + '\\' + result)) {
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 result += '\\';
@@ -81,7 +98,27 @@ namespace ConsoleApplication {
                             }
                             Console.WriteLine("\t" + result);
                         }
+                        _process.Dispose( );
                         Console.ForegroundColor = prevColor;
+                        return true;
+                    case "mkdir":
+                        Directory.CreateDirectory(Directory.GetCurrentDirectory( ) + '\\' + arguments[0]);
+                        break;
+                    case "dgvc":
+                        _process = new Process {
+                            StartInfo = new ProcessStartInfo {
+                                FileName = "cmd.exe",
+                                Arguments = "git " + arguments.Sum(" "),
+                                RedirectStandardOutput = true,
+                                UseShellExecute = false,
+                                CreateNoWindow = true,
+                            }
+                        };
+                        _process.Start( );
+                        //while (!process.StandardOutput.EndOfStream) {
+                        //    string result = process.StandardOutput.ReadLine( );
+                        //    Console.WriteLine(result);
+                        //}
                         return true;
                 }
             } catch {
