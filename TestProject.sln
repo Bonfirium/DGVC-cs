@@ -3,9 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{28DF1DC5-8FAD-4C46-828D-991053B65000}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGVC", "DGVC\DGVC.csproj", "{28DF1DC5-8FAD-4C46-828D-991053B65000}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGVC_UI", "DGVC_UI\DGVC_UI.csproj", "{A9B0214B-3A96-4194-BC29-F2F241F82D3F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{28DF1DC5-8FAD-4C46-828D-991053B65000} = {28DF1DC5-8FAD-4C46-828D-991053B65000}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
