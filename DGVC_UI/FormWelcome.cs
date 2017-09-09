@@ -15,7 +15,6 @@ namespace DGVC_UI
             {
                 DisplayResultAsync(item);
             }
-            
         }
 
         static async void DisplayResultAsync(Label label)
@@ -27,7 +26,7 @@ namespace DGVC_UI
         {
             return Task.Run(() =>
             {
-                return GolosManager.GetUsersCount();
+                return Program.GolosManager.GetUsersCount();
             });
         }
     }
