@@ -9,7 +9,7 @@ namespace TestProject
 {
     static class SignatureGenerator
     {
-       public static string Generate(string s)
+        public static string Generate(string s)
         {
             byte[] data = new UTF8Encoding().GetBytes(s);
             SHA256 result = new SHA256Managed();
@@ -19,7 +19,7 @@ namespace TestProject
         }
         static string GenerateByValues(string username, DateTime data, string commitId)
         {
-            string s=username + " ; " + data.ToString() + ";" + commitId;
+            string s = username + ";" + data.ToString() + ";" + commitId;
             return Generate(s);
         }
     }
