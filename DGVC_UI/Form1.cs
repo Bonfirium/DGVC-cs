@@ -39,7 +39,11 @@ namespace DGVC_UI
             Chain.Add("Golos", golosChainInfo);
             var Golos = new OperationManager(golosChainInfo.Url, golosChainInfo.ChainId);
             var accountCount = Golos.GetAccountCount();
-            label1.Text = "Account Count = " + accountCount.Result;
+            this.Close();
+            //label1.Text = "Account Count = " + accountCount.Result;
+            menu menu = new menu();
+            //menu.R();
+            
         }
 
     }
