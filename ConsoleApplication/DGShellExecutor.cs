@@ -194,9 +194,13 @@ namespace ConsoleApplication {
                                                 }
                                             }
                                         }
-                                        if (finded && identity) {
-                                            Program.GolosManager.CreatePost("", new string[0], new string[0]);
+                                        if (!finded) {
+                                            throw new Exception("Commit " + shortId + " does not find");
                                         }
+                                        if (!identity) {
+                                            throw new Exception("Commit " + shortId + " is not identity");
+                                        }
+                                        Program.GolosManager.CreatePost("", new string[0], new string[0]);
                                         break;
                                 }
                                 break;

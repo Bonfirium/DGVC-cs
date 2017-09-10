@@ -33,9 +33,9 @@ namespace TestProject {
         }
 
         public void CreatePost(string title, string[] message, string[] tags) {
-            var op = new PostOperation("Golos", UserName, "Test DGVC",
+            var op = new PostOperation("dgvcTest", UserName, "Test DGVC",
                 "It's just a test. Ignore it please.\nPeace! ^-^",
-                "{\"app\": \"Golos / 0.0.4\", \"tags\": [test]}");
+                "{\"app\": \"dgvcTest / 0.0.4\", \"tags\": [dgvcTest]}");
             //var popt = new BeneficiariesOperation(UserName, op.Permlink,
             //    Chain["Golos"].SbdSymbol, new Beneficiary(URL, 1000));
             var prop = Golos.VerifyAuthority(_authList, op);
