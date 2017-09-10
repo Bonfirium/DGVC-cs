@@ -11,6 +11,11 @@ namespace ConsoleApplication {
 
         static void Main(string[ ] args) {
             bool printCurrentDirectory = true;
+#if DEBUG
+            for (uint i = 0; i < 3; i++) {
+                DGShellExecutor.Execute("cd", new List<string>( ) { ".." });
+            }
+#endif
             while (true) {
                 Console.WriteLine( );
                 Console.ForegroundColor = ConsoleColor.Yellow;

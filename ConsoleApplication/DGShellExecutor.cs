@@ -123,7 +123,12 @@ namespace ConsoleApplication {
                         Directory.CreateDirectory(Directory.GetCurrentDirectory( ) + '\\' + arguments[0]);
                         break;
                     case "git": {
-                            List<string> @out = ExecuteCMDCommand("git " + arguments.Sum(" "));
+                            List<string> @out;
+                            if (arguments.Count == 1 && arguments[0] == "l") {
+                                @out = ExecuteCMDCommand("git log --format=oneline");
+                            } else {
+                                @out = ExecuteCMDCommand("git " + arguments.Sum(" "));
+                            }
                             foreach (var a in @out) {
                                 Console.WriteLine(a);
                             }
@@ -168,6 +173,7 @@ namespace ConsoleApplication {
                                     password += a;
                                 }
                                 Program.GolosManager.Login(username, password);
+                                Console.WriteLine( );
                                 return true;
                             case "post":
                                 switch (arguments[1]) {

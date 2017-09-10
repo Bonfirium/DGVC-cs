@@ -35,8 +35,8 @@ namespace TestProject {
         public void CreatePost(string title, string[] message, string[] tags) {
             var op = new PostOperation(URL, UserName, "Test DGVC", "It's just a test. Ignore it please.\nPeace! ^-^", "{\"app\": \"" + URL + " / 0.0.4\", \"tags\": [test]}");
             var popt = new BeneficiariesOperation(UserName, op.Permlink, Chain["Golos"].SbdSymbol, new Beneficiary(URL, 1000));
-            //var prop = Golos.VerifyAuthority(_authList, op);
-            Golos.BroadcastOperations(_authList, op, popt);
+            var prop = Golos.VerifyAuthority(_authList, op);
+            //Golos.BroadcastOperations(_authList, op, popt);
         }
 
         private JsonRpcResponse<KeyValuePair<uint, AppliedOperation>[]> GetUserHistoryAsJson(string userName, ulong from, uint limit) {
