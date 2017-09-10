@@ -22,14 +22,40 @@ namespace DGVC_UI
 
         }
 
-        private void button_Click(object sender, EventArgs e)
+        private void button_Click1(object sender, EventArgs e)
         {
-            im(sender.ToString().Substring(35));
+            im("git status"); 
             textBox1.Text += Environment.NewLine;
-
-
         }
-
+        private void button_Click2(object sender, EventArgs e)
+        {
+            im("git push");
+            textBox1.Text += Environment.NewLine;
+        }
+        private void button_Click3(object sender, EventArgs e)
+        {
+            im("git pull");
+            textBox1.Text += Environment.NewLine;
+        }
+        private void button_Click4(object sender, EventArgs e)
+        {
+            im("git add .");
+            textBox1.Text += Environment.NewLine;
+        }
+        private void button_Click5(object sender, EventArgs e)
+        {
+            string tr = "git commit -m ";
+            OK frmAbout = new OK();
+            frmAbout.ShowDialog();
+            tr = tr + Program.commit;
+            im(tr);
+            textBox1.Text += Environment.NewLine;
+        }
+        private void button_Click6(object sender, EventArgs e)
+        {
+            im("git log");
+            textBox1.Text += Environment.NewLine;
+        }
         private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
