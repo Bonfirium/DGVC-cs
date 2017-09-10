@@ -109,12 +109,26 @@ namespace ConsoleApplication {
                             StartInfo = new ProcessStartInfo {
                                 FileName = "cmd.exe",
                                 Arguments = "git " + arguments.Sum(" "),
+                                RedirectStandardInput = true,
                                 RedirectStandardOutput = true,
                                 UseShellExecute = false,
-                                CreateNoWindow = true,
                             }
                         };
                         _process.Start( );
+
+                        // execute git command
+                        using (StreamWriter pWriter = _process.StandardInput) {
+                            if (pWriter.BaseStream.CanWrite) {
+                                pWriter.WriteLine(_process.StartInfo.Arguments);
+                            }
+                        }
+                        
+                        // read result after git command
+                        string st = _process.StandardOutput.ReadToEnd( );
+
+                        // remove command greeting
+                        Console.WriteLine(st.Substring(st.IndexOf('\n', st.IndexOf('\n')+2)));
+
                         //while (!process.StandardOutput.EndOfStream) {
                         //    string result = process.StandardOutput.ReadLine( );
                         //    Console.WriteLine(result);
