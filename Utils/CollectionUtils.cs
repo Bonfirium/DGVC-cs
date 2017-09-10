@@ -9,5 +9,23 @@ namespace Utils.CollectionUtils {
             }
             return result;
         }
+
+        public static bool ContainsSubstring(IEnumerable<string> iEnumerable, string str) {
+            foreach (var a in iEnumerable) {
+                if (a.Contains(str)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool ContainsSuperstring(IEnumerable<string> iEnumerable, string str) {
+            foreach (var a in iEnumerable) {
+                if (str.Contains(a)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

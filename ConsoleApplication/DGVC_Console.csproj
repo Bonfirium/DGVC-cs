@@ -54,6 +54,10 @@
       <Project>{28DF1DC5-8FAD-4C46-828D-991053B65000}</Project>
       <Name>DGVC</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{E4581200-C07F-484A-A80A-82BE28CE69BE}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

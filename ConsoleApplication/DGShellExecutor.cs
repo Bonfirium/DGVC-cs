@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestProject;
+using Utils.CollectionUtils;
 
 namespace ConsoleApplication {
     public static class DGShellExecutor {
@@ -102,14 +103,14 @@ namespace ConsoleApplication {
                             ConsoleColor prevColor = Console.ForegroundColor;
                             foreach (var a in @out) {
                                 string result = a.Clone( ) as string;
-                                if (Directory.Exists(Directory.GetCurrentDirectory( ) + '\\') && result != ".idea") {
+                                if (Directory.Exists(Directory.GetCurrentDirectory( ) + '\\' + result) && result != ".idea") {
                                     Console.ForegroundColor = ConsoleColor.Green;
                                     result += '\\';
-                                } else if (new List<string>( ) {
+                                } else if (CollectionUtils.ContainsSuperstring(new List<string>( ) {
                                     ".gitignore",
                                     ".gitconfig",
                                     ".idea",
-                                }.Contains(result)) {
+                                }, result)) {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                 } else if (IsSource(result)) {
                                     Console.ForegroundColor = ConsoleColor.Cyan;
