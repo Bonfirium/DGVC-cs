@@ -169,7 +169,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleApplication\ConsoleApplication.csproj">
+    <ProjectReference Include="..\ConsoleApplication\DGVC_Console.csproj">
       <Project>{979ABE2D-B2A5-4281-993E-887CF7F2B0CF}</Project>
       <Name>ConsoleApplication</Name>
     </ProjectReference>

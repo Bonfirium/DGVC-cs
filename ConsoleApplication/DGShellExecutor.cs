@@ -126,8 +126,12 @@ namespace ConsoleApplication {
                         break;
                     case "git": {
                             List<string> @out;
-                            if (arguments.Count == 1 && arguments[0] == "l") {
-                                @out = ExecuteCMDCommand("git log --format=oneline");
+                            if (arguments[0] == "l") {
+                                string commandStr = "git log --format=oneline";
+                                for (uint i = 1; i < arguments.Count; i++) {
+                                    commandStr += " " + arguments[(int)i];
+                                }
+                                @out = ExecuteCMDCommand(commandStr);
                             } else {
                                 @out = ExecuteCMDCommand("git " + arguments.Sum(" "));
                             }
