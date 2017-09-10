@@ -34,6 +34,7 @@ namespace TestProject {
         }
 
         public void CreatePost(string title, string[] message, string[] tags) {
+            //TODO: make toLowerCase()
             var op = new PostOperation("dgvctest", UserName, title,
                 CollectionUtils.Combine(message, "\n"),
                 "{}");
