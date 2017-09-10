@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestProject;
 
 namespace ConsoleApplication {
     public static class DGShellExecutor {
@@ -38,10 +40,10 @@ namespace ConsoleApplication {
             return result;
         }
 
-        public static string Sum(this List<string> list, string split = "") {
+        public static string Sum(this IEnumerable<string> collection, string split="") {
             string result = "";
             bool isFirst = true;
-            foreach (var item in list) {
+            foreach (var item in collection) {
                 if (!isFirst) {
                     result += split;
                 } else {
@@ -200,7 +202,9 @@ namespace ConsoleApplication {
                                         if (!identity) {
                                             throw new Exception("Commit " + shortId + " is not identity");
                                         }
-                                        Program.GolosManager.CreatePost("", new string[0], new string[0]);
+                                        Program.GolosManager.CreatePost("Commit by " + Program.GolosManager.UserName + " #" + fullId, new string[] {
+                                            GlobalDGVCSettings.LOGO_URL,
+                                        }, new string[0]);
                                         break;
                                 }
                                 break;
