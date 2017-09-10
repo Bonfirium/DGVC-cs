@@ -11,7 +11,7 @@ namespace ConsoleApplication {
 
         private static Process _process = null;
 
-        private static List<string> ExecuteCMDCommand(string command) {
+        public static List<string> ExecuteCMDCommand(string command) {
             if (_process != null) {
                 _process.Dispose( );
                 _process = null;

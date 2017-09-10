@@ -22,7 +22,7 @@ namespace DGVC_UI
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormWelcome());
+          //  Application.Run(new FormWelcome());
             Application.Run(new menu());
 
 
