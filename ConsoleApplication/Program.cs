@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using TestProject;
 
 namespace ConsoleApplication {
     class Program {
+
+        public static readonly GolosManager GolosManager = new GolosManager( );
+
         static void Main(string[ ] args) {
             bool printCurrentDirectory = true;
             while (true) {

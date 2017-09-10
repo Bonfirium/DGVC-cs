@@ -11,6 +11,33 @@ namespace ConsoleApplication {
 
         private static Process _process = null;
 
+        private static List<string> ExecuteCMDCommand(string command) {
+            if (_process != null) {
+                _process.Dispose( );
+                _process = null;
+            }
+            _process = new Process {
+                StartInfo = new ProcessStartInfo {
+                    FileName = "cmd.exe",
+                    Arguments = "/c " + command,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                }
+            };
+            _process.Start( );
+            using (StreamWriter pWriter = _process.StandardInput) {
+                if (pWriter.BaseStream.CanWrite) {
+                    pWriter.WriteLine(_process.StartInfo.Arguments);
+                }
+            }
+            List<string> result = new List<string>( );
+            while (!_process.StandardOutput.EndOfStream) {
+                result.Add(_process.StandardOutput.ReadLine( ));
+            }
+            return result;
+        }
+
         public static string Sum(this List<string> list, string split = "") {
             string result = "";
             bool isFirst = true;
@@ -72,72 +99,111 @@ namespace ConsoleApplication {
                             return true;
                         }
                         break;
-                    case "ls":
-                        _process = new Process {
-                            StartInfo = new ProcessStartInfo {
-                                FileName = "cmd.exe",
-                                Arguments = "/c dir /b",
-                                RedirectStandardOutput = true,
-                                UseShellExecute = false,
-                                CreateNoWindow = true,
+                    case "ls": {
+                            List<string> @out = ExecuteCMDCommand("dir /b");
+                            ConsoleColor prevColor = Console.ForegroundColor;
+                            foreach (var a in @out) {
+                                string result = a.Clone( ) as string;
+                                if (Directory.Exists(Directory.GetCurrentDirectory( ) + '\\' + result)) {
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    result += '\\';
+                                } else if (result == ".gitignore" || result == ".gitconfig") {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                } else if (IsSource(result)) {
+                                    Console.ForegroundColor = ConsoleColor.Cyan;
+                                } else {
+                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                }
+                                Console.WriteLine("\t" + result);
                             }
-                        };
-                        _process.Start( );
-                        ConsoleColor prevColor = Console.ForegroundColor;
-                        while (!_process.StandardOutput.EndOfStream) {
-                            string result = _process.StandardOutput.ReadLine( );
-                            if (Directory.Exists(Directory.GetCurrentDirectory( ) + '\\' + result)) {
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                result += '\\';
-                            } else if (result == ".gitignore" || result == ".gitconfig") {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                            } else if (IsSource(result)) {
-                                Console.ForegroundColor = ConsoleColor.Cyan;
-                            } else {
-                                Console.ForegroundColor = ConsoleColor.Gray;
-                            }
-                            Console.WriteLine("\t" + result);
+                            Console.ForegroundColor = prevColor;
+                            return true;
                         }
-                        _process.Dispose( );
-                        Console.ForegroundColor = prevColor;
-                        return true;
                     case "mkdir":
                         Directory.CreateDirectory(Directory.GetCurrentDirectory( ) + '\\' + arguments[0]);
                         break;
-                    case "dgvc":
-                        _process = new Process {
-                            StartInfo = new ProcessStartInfo {
-                                FileName = "cmd.exe",
-                                Arguments = "git " + arguments.Sum(" "),
-                                RedirectStandardInput = true,
-                                RedirectStandardOutput = true,
-                                UseShellExecute = false,
+                    case "git": {
+                            List<string> @out = ExecuteCMDCommand("git " + arguments.Sum(" "));
+                            foreach (var a in @out) {
+                                Console.WriteLine(a);
                             }
-                        };
-                        _process.Start( );
-
-                        // execute git command
-                        using (StreamWriter pWriter = _process.StandardInput) {
-                            if (pWriter.BaseStream.CanWrite) {
-                                pWriter.WriteLine(_process.StartInfo.Arguments);
-                            }
+                            return true;
                         }
-                        
-                        // read result after git command
-                        string st = _process.StandardOutput.ReadToEnd( );
-
-                        // remove command greeting
-                        Console.WriteLine(st.Substring(st.IndexOf('\n', st.IndexOf('\n')+2)));
-
-                        //while (!process.StandardOutput.EndOfStream) {
-                        //    string result = process.StandardOutput.ReadLine( );
-                        //    Console.WriteLine(result);
-                        //}
-                        return true;
+                    case "dgvc":
+                        switch (arguments[0]) {
+                            case "login":
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write(" !!! Enter your username:");
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write(" >> ");
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                string username = Console.ReadLine( );
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write(" !!! Enter your password:");
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write(" >> ");
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                var pass = new Stack<char>( );
+                                char chr = (char)0;
+                                int[] FILTERED = { 0, 27, 9, 10, 32 }; // const
+                                while ((chr = Console.ReadKey(true).KeyChar) != 13) { // 13 is ENTER
+                                    if (chr == 8) { // Backspace
+                                        if (pass.Count > 0) {
+                                            Console.Write("\b \b");
+                                            pass.Pop( );
+                                        }
+                                    } else if (chr == 127) { // Ctrl + Backspace
+                                        while (pass.Count > 0) {
+                                            Console.Write("\b \b");
+                                            pass.Pop( );
+                                        }
+                                    } else if (FILTERED.Count(x => chr == x) > 0) { } else {
+                                        pass.Push(chr);
+                                        Console.Write('*');
+                                    }
+                                }
+                                char[] passwordByChars = pass.Reverse( ).ToArray( );
+                                string password = "";
+                                foreach (var a in passwordByChars) {
+                                    password += a;
+                                }
+                                Program.GolosManager.Login(username, password);
+                                return true;
+                            case "post":
+                                switch (arguments[1]) {
+                                    case "commit":
+                                        string shortId = arguments[2];
+                                        List<string> shortLog = ExecuteCMDCommand("git log --format=oneline");
+                                        bool finded = false;
+                                        bool identity = true;
+                                        string fullId = null;
+                                        foreach (var a in shortLog) {
+                                            if (a.IndexOf(shortId) == 0) {
+                                                if (finded) {
+                                                    identity = false;
+                                                    break;
+                                                } else {
+                                                    finded = true;
+                                                    fullId = a.Split(' ')[0];
+                                                }
+                                            }
+                                        }
+                                        if (finded && identity) {
+                                            Program.GolosManager.CreatePost("", new string[0], new string[0]);
+                                        }
+                                        break;
+                                }
+                                break;
+                        }
+                        break;
                 }
-            } catch {
+            } catch (Exception e) {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(" ---===ERROR===---");
+                Console.WriteLine(" " + e.Message.Replace("\n", "\n "));
             }
-            return false;
+            //return false;
+            return true;
         }
     }
 }

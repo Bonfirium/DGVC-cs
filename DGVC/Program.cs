@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Configuration;
 
-namespace TestProject
-{
-    class Program
-    {
+namespace TestProject {
+    class Program {
         private static string UserPrivateKey => ConfigurationManager.AppSettings["UserPrivateKey"];
 
-        static void Main(string[] args)
-        {
-            GolosManager gm = new GolosManager();
+        static void Main(string[] args) {
+            GolosManager gm = new GolosManager( );
             //Console.WriteLine("Enter the username");
             //string username = Console.ReadLine();
             //Console.WriteLine("Enter the password");
             //string password = Console.ReadLine();
-            Console.WriteLine("Account Count = " + gm.GetUsersCount());
+            Console.WriteLine("Account Count = " + gm.GetUsersCount( ));
             //var accountHistory = gm.GetUserHistory("vermilliest", 1000, 1000);
             //foreach (var a in accountHistory.Result)
             //{
@@ -27,7 +24,7 @@ namespace TestProject
             gm.GetUserHistory("vermilliest", 1000, 1000);
 
 #if DEBUG
-            Console.Read();
+            Console.Read( );
 #endif
         }
     }
