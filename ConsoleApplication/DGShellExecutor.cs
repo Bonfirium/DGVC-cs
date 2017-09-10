@@ -11,14 +11,8 @@ using TestProject;
 namespace ConsoleApplication {
     public static class DGShellExecutor {
 
-        private static Process _process = null;
-
         private static List<string> ExecuteCMDCommand(string command) {
-            if (_process != null) {
-                _process.Dispose( );
-                _process = null;
-            }
-            _process = new Process {
+            var _process = new Process {
                 StartInfo = new ProcessStartInfo {
                     FileName = "cmd.exe",
                     Arguments = "/c " + command,
@@ -37,6 +31,7 @@ namespace ConsoleApplication {
             while (!_process.StandardOutput.EndOfStream) {
                 result.Add(_process.StandardOutput.ReadLine( ));
             }
+            _process.Dispose( );
             return result;
         }
 
