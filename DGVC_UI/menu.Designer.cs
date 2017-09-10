@@ -123,6 +123,7 @@
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(380, 339);
             this.textBox1.TabIndex = 7;
+            this.textBox1.ReadOnly = true;
             // 
             // folderBrowserDialog1
             // 
@@ -139,6 +140,7 @@
             this.textBox2.Size = new System.Drawing.Size(408, 19);
             this.textBox2.TabIndex = 8;
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox2.ReadOnly = true;
             // 
             // button7
             // 
