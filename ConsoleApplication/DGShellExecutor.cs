@@ -19,6 +19,7 @@ namespace ConsoleApplication {
                     RedirectStandardInput = true,
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
+                    CreateNoWindow = true,
                 }
             };
             _process.Start( );
