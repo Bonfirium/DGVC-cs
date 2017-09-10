@@ -12,7 +12,7 @@ using Utils.CollectionUtils;
 namespace ConsoleApplication {
     public static class DGShellExecutor {
 
-        private static List<string> ExecuteCMDCommand(string command) {
+        public static List<string> ExecuteCMDCommand(string command, bool isWindow = false) {
             var _process = new Process {
                 StartInfo = new ProcessStartInfo {
                     FileName = "cmd.exe",
@@ -20,7 +20,7 @@ namespace ConsoleApplication {
                     RedirectStandardInput = true,
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
-                    CreateNoWindow = true,
+                    CreateNoWindow = isWindow,
                 }
             };
             _process.Start( );

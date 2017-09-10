@@ -98,11 +98,11 @@ namespace DGVC_UI
                             List<string> @out;
                             if (arguments.Count == 1 && arguments[0] == "l")
                             {
-                                @out = DGShellExecutor.ExecuteCMDCommand("git log --format=oneline");
+                                @out = DGShellExecutor.ExecuteCMDCommand("git log --format=oneline", true);
                             }
                             else
                             {
-                                @out = DGShellExecutor.ExecuteCMDCommand("git " + arguments.Sum(" "));
+                                @out = DGShellExecutor.ExecuteCMDCommand("git " + arguments.Sum(" "), true);
                             }
                             foreach (var a in @out)
                             {
