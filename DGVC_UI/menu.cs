@@ -68,6 +68,7 @@ namespace DGVC_UI
                 {
                     case "git":
                         {
+                            textBox1.Text = "";
                             List<string> @out;
                             if (arguments.Count == 1 && arguments[0] == "l")
                             {
@@ -79,7 +80,8 @@ namespace DGVC_UI
                             }
                             foreach (var a in @out)
                             {
-                                textBox1.Text = a;
+                                textBox1.Text += a;
+                                textBox1.Text += Environment.NewLine;
                             }
                             return true;
                         }
