@@ -35,7 +35,7 @@ namespace ConsoleApplication {
             return result;
         }
 
-        public static string Sum(this IEnumerable<string> collection, string split="") {
+        public static string Sum(this IEnumerable<string> collection, string split = "") {
             string result = "";
             bool isFirst = true;
             foreach (var item in collection) {
@@ -101,10 +101,14 @@ namespace ConsoleApplication {
                             ConsoleColor prevColor = Console.ForegroundColor;
                             foreach (var a in @out) {
                                 string result = a.Clone( ) as string;
-                                if (Directory.Exists(Directory.GetCurrentDirectory( ) + '\\' + result)) {
+                                if (Directory.Exists(Directory.GetCurrentDirectory( ) + '\\') && result != ".idea") {
                                     Console.ForegroundColor = ConsoleColor.Green;
                                     result += '\\';
-                                } else if (result == ".gitignore" || result == ".gitconfig") {
+                                } else if (new List<string>( ) {
+                                    ".gitignore",
+                                    ".gitconfig",
+                                    ".idea",
+                                }.Contains(result)) {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                 } else if (IsSource(result)) {
                                     Console.ForegroundColor = ConsoleColor.Cyan;
@@ -151,7 +155,7 @@ namespace ConsoleApplication {
                                 Console.ForegroundColor = ConsoleColor.Yellow;
                                 var pass = new Stack<char>( );
                                 char chr = (char)0;
-                                int[] FILTERED = { 0, 27, 9, 10, 32 }; // const
+                                int[ ] FILTERED = { 0, 27, 9, 10, 32 }; // const
                                 while ((chr = Console.ReadKey(true).KeyChar) != 13) { // 13 is ENTER
                                     if (chr == 8) { // Backspace
                                         if (pass.Count > 0) {
@@ -168,7 +172,7 @@ namespace ConsoleApplication {
                                         Console.Write('*');
                                     }
                                 }
-                                char[] passwordByChars = pass.Reverse( ).ToArray( );
+                                char[ ] passwordByChars = pass.Reverse( ).ToArray( );
                                 string password = "";
                                 foreach (var a in passwordByChars) {
                                     password += a;
@@ -201,7 +205,7 @@ namespace ConsoleApplication {
                                         if (!identity) {
                                             throw new Exception("Commit " + shortId + " is not identity");
                                         }
-                                        Program.GolosManager.CreatePost("Commit by " + Program.GolosManager.UserName + " #" + fullId, new string[] {
+                                        Program.GolosManager.CreatePost("Commit by " + Program.GolosManager.UserName + " #" + fullId, new string[ ] {
                                             GlobalDGVCSettings.LOGO_W_URL,
                                         }, new string[0]);
                                         break;
