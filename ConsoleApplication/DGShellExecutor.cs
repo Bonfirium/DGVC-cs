@@ -207,8 +207,17 @@ namespace ConsoleApplication {
                                         if (!identity) {
                                             throw new Exception("Commit " + shortId + " is not identity");
                                         }
+                                        List<string> logResult = ExecuteCMDCommand("git log " + fullId + " -1");
+                                        string authorEMain = logResult[1].Split(' ')[2];
+                                        authorEMain.Substring(1, authorEMain.Length - 2);
                                         Program.GolosManager.CreatePost("Commit by " + Program.GolosManager.UserName + " #" + fullId, new string[ ] {
                                             GlobalDGVCSettings.LOGO_W_URL,
+                                            "Author: **" + logResult[1].Split(' ')[1] + "**", "",
+                                            "E-Mail: **" + authorEMain + "**", "",
+                                            "Date: **" + logResult[2].Substring(8), "",
+                                            "", "", "",
+                                            "#[Link to GitHub](https://github.com/nicklatkovich/DGVC/commit/" + fullId
+                                            + ")#", "",
                                         }, new string[0]);
                                         break;
                                 }
