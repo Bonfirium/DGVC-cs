@@ -48,7 +48,7 @@ namespace DGVC_UI
             OK frmAbout = new OK();
             frmAbout.ShowDialog();
             tr = tr + Program.commit;
-            im("git commit -m ");
+            im(tr);
             textBox1.Text += Environment.NewLine;
         }
         private void button_Click6(object sender, EventArgs e)
