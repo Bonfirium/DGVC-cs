@@ -51,6 +51,7 @@
             this.sign_in.TabIndex = 0;
             this.sign_in.Text = "Войти";
             this.sign_in.UseVisualStyleBackColor = true;
+          //  this.sign_in.Click += new System.EventHandler(this.sign_in_Click);
             // 
             // label_UsersCount
             // 
