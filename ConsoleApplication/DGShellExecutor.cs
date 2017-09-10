@@ -203,7 +203,7 @@ namespace ConsoleApplication {
                                             throw new Exception("Commit " + shortId + " is not identity");
                                         }
                                         Program.GolosManager.CreatePost("Commit by " + Program.GolosManager.UserName + " #" + fullId, new string[] {
-                                            GlobalDGVCSettings.LOGO_URL,
+                                            GlobalDGVCSettings.LOGO_W_URL,
                                         }, new string[0]);
                                         break;
                                 }
