@@ -6,10 +6,11 @@ using System.Windows.Forms;
 using TestProject;
 
 namespace DGVC_UI
-{
+{ 
+    
     static class Program
     {
-
+        public static string commit;
         public static readonly GolosManager GolosManager = new GolosManager();
 
         /// <summary>

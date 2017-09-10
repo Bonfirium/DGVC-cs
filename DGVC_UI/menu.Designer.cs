@@ -50,7 +50,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "git status";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button_Click);
+            this.button1.Click += new System.EventHandler(this.button_Click1);
             // 
             // button2
             // 
@@ -62,7 +62,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "git push";
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button_Click);
+            this.button2.Click += new System.EventHandler(this.button_Click2);
             // 
             // button3
             // 
@@ -74,7 +74,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "git pull";
             this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button_Click);
+            this.button3.Click += new System.EventHandler(this.button_Click3);
             // 
             // button4
             // 
@@ -86,7 +86,7 @@
             this.button4.TabIndex = 3;
             this.button4.Text = "git add";
             this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button_Click);
+            this.button4.Click += new System.EventHandler(this.button_Click4);
             // 
             // button5
             // 
@@ -98,7 +98,7 @@
             this.button5.TabIndex = 4;
             this.button5.Text = "git commit";
             this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button_Click);
+            this.button5.Click += new System.EventHandler(this.button_Click5);
             // 
             // button6
             // 
@@ -110,7 +110,7 @@
             this.button6.TabIndex = 5;
             this.button6.Text = "git log";
             this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button_Click);
+            this.button6.Click += new System.EventHandler(this.button_Click6);
             // 
             // textBox1
             // 
