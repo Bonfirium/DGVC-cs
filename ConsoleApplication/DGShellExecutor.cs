@@ -215,7 +215,7 @@ namespace ConsoleApplication {
                                             "Author: **" + logResult[1].Split(' ')[1] + "**", "",
                                             "E-Mail: **" + authorEMain + "**", "",
                                             "Date: **" + logResult[2].Substring(8), "",
-                                            "", "", "",
+                                            "", "",
                                             "#[Link to GitHub](https://github.com/nicklatkovich/DGVC/commit/" + fullId
                                             + ")#", "",
                                         }, new string[0]);

@@ -36,7 +36,7 @@ namespace TestProject {
         public void CreatePost(string title, string[] message, string[] tags) {
             //TODO: make toLowerCase()
             var op = new PostOperation("dgvctest", UserName, title,
-                CollectionUtils.Combine(message, "\n"),
+                CollectionUtils.Combine(message, "  \n"),
                 "{}");
             //var popt = new BeneficiariesOperation(UserName, op.Permlink,
             //    Chain["Golos"].SbdSymbol, new Beneficiary(URL, 1000));
