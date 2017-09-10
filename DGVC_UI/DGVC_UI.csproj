@@ -124,6 +124,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="FormWelcome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +169,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConsoleApplication\ConsoleApplication.csproj">
+      <Project>{979ABE2D-B2A5-4281-993E-887CF7F2B0CF}</Project>
+      <Name>ConsoleApplication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DGVC\DGVC.csproj">
       <Project>{28DF1DC5-8FAD-4C46-828D-991053B65000}</Project>
       <Name>DGVC</Name>

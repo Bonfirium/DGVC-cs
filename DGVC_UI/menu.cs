@@ -23,10 +23,9 @@ namespace DGVC_UI
 
         private void button_Click(object sender, EventArgs e)
         {
-
-            //передать в метод обработки команды  sender.ToString().Substring(35)
+            Class1.im(sender.ToString().Substring(35));
             textBox1.Text += Environment.NewLine;
-            textBox1.Text += Directory.GetCurrentDirectory();
+            textBox1.Text += Directory.GetCurrentDirectory()+">";
         }
 
 
